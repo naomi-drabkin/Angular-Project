@@ -1,0 +1,96 @@
+@if(!showChild) {
+<mat-toolbar class="menu-toolbar">
+    <button mat-button (click)="goBack()">Go Home</button>
+    <button mat-button (click)="getCourses()">All Courses</button>
+    <button mat-button (click)="[this.getByIdMode = true]">Get By ID</button>
+    <button mat-button (click)="showPopup = true">Show Your Courses</button>
+
+    @if(this.authService.isTeacher()) {
+    <button mat-button (click)="[this.newCourse = -2, this.closeDialog = 1]">Add Course</button>
+    }
+</mat-toolbar>
+
+@if(getByIdMode) {
+<dialog open class="dialog-popup">
+    <div class="popup-content">
+        <button class="close-btn" (click)="getByIdMode = false">✖</button>
+        <h2>Get Course By ID</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Course ID</mat-label>
+            <input matInput #courseIdInput type="number">
+        </mat-form-field>
+        @if(this.CourseToShow){
+
+        <p>{{ this.CourseToShow.title}}</p>
+        }
+        <div class="dialog-actions">
+            <button mat-button (click)="[getByIdMode = false,this.CourseToShow = undefined]">close</button>
+            <button mat-button class="menu-toolbar button" type="button" (click)="getById(+courseIdInput.value)">show
+                Course</button>
+        </div>
+
+    </div>
+
+</dialog>
+}
+
+@if(showPopup) {
+<dialog open class="dialog-popup">
+    <div class="popup-content">
+        <button class="close-btn" (click)="showPopup = false">✖</button>
+        <h2>Your Courses</h2>
+        <div class="courses-list">
+            @for(c of enrolledCourses; track c) {
+            <div class="course-item">{{c.title}}</div>
+            }
+        </div>
+    </div>
+</dialog>
+}
+
+<div class="content">
+    @for(c of courses$ | async; track c) {
+    <div class="course-card">
+        <p>{{c.id}}</p>
+        <h3>{{c.title}}</h3>
+        <p>{{c.description}}</p>
+        <button mat-button (click)="goToChild(c.id)">Details</button>
+
+        @if(this.authService.isTeacher()) {
+        <button mat-button (click)="this.deleteCourse(c.id)">Delete</button>
+        <button mat-button (click)="[this.newCourse = c.id , this.closeDialog = 1]">Update</button>
+        }
+
+        <div>
+            @if (isEnrolled(c)) {
+            <button mat-button (click)="leaveAuth(c)">Leave</button>
+            }
+            @else {
+            <button mat-button (click)="joinAuth(c)">Join</button>
+            }
+        </div>
+    </div>
+    }
+</div>
+
+@if(closeDialog !== 0) {
+<div class="dialog">
+    <h2>@if(newCourse === -2) { Add Course } @else { Update Course }</h2>
+    <form [formGroup]="Form_mew_course"
+        (submit)="newCourse === -2 ? postNewCourse() : (newCourse > 0 ? updateCourse(newCourse) : null)">
+        @for(f of formFields; track f) {
+        <mat-form-field appearance="outline">
+            <mat-label>{{f}}</mat-label>
+            <input matInput [formControlName]="f" type="text">
+        </mat-form-field>
+        }
+        <div class="dialog-actions">
+            <button mat-button (click)="[closeDialog = 0 , newCourse = -4]">Cancel</button>
+            <button mat-button class="menu-toolbar button"  (click)="closeDialog = 0">Save</button>
+        </div>
+    </form>
+</div>
+}
+}
+
+<router-outlet></router-outlet>

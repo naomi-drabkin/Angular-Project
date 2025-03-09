@@ -1,0 +1,70 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* פופאפ */
+  .popup-content {
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+  }
+  
+  /* כפתור סגירה */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  /* כותרת */
+  h2 {
+    font-size: 1.8rem;
+    color: #4b545d;
+    margin-bottom: 10px;
+  }
+  
+  /* תת-כותרת */
+  .popup-subtitle {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  .form-container {
+    display: flex;
+    flex-direction: column;  /* מסדר את השדות אחד מתחת לשני */
+    gap: 15px;  /* רווח בין השדות */
+    width: 100%;
+  }
+  
+  /* שדה טופס */
+  mat-form-field {
+    width: 100%;
+  }
+  
+  /* כפתור */
+  .btn {
+    background-color: #edab54;
+    color: white;
+    /* font-size: 1.2rem; */
+    padding: 10px;
+    border-radius: 6px;
+    transition:0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #e09b45;
+  }
+
+  

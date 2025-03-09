@@ -1,0 +1,77 @@
+<mat-toolbar class="menu-toolbar">
+    <button mat-button (click)="goBack()">Go Home</button>
+
+    @if(isAdmin()) {
+    <button mat-button (click)="this.newUser = -4">Get By ID</button>
+    <button mat-button (click)="getUsers()">All Users</button>
+    }
+</mat-toolbar>
+
+<div class="content">
+    @for (user of AllUsers$ | async; track user) {
+    <div class="course-card">
+        <h3>{{ user.id }} - {{ user.name }}</h3>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.role }}</p>
+
+        @if(isAdmin()) {
+        <button mat-button (click)="deleteUser(user.id)">Delete</button>
+        <button mat-button (click)="this.newUser = user.id">Update</button>
+        }
+
+        @if(newUser === user.id) {
+        <div class="dialog">
+            <h2>Update User</h2>
+            <form [formGroup]="Form_new_user" (submit)="updateUser(user.id)">
+                @for(f of formFields; track f) {
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ f }}</mat-label>
+
+                    @if(f === "role") {
+                    <mat-select formControlName="role">
+                        <mat-option value="" disabled selected>בחר תפקיד</mat-option>
+                        <mat-option value="admin">מנהל</mat-option>
+                        <mat-option value="student">סטודנט</mat-option>
+                        <mat-option value="teacher">מורה</mat-option>
+                    </mat-select>
+                    }
+                    @else {
+                    <input matInput [formControlName]="f"
+                        [type]="f === 'password' ? 'password' : (f === 'email' ? 'email' : 'text')">
+                    }
+                </mat-form-field>
+                }
+
+                <div class="dialog-actions">
+                    <button mat-button type="submit">send</button>
+                    <button mat-button (click)="newUser = 0">Cancel</button>
+
+                </div>
+            </form>
+        </div>
+        }
+    </div>
+    }
+
+    @if (newUser === -4) {
+    <div class="dialog">
+        <h2>Get User By ID</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Enter User ID</mat-label>
+            <input matInput #id type="number">
+        </mat-form-field>
+
+        @if(this.user) {
+        <p>{{ this.user.name }} - ({{ this.user.role }})</p>
+        }
+        <div class="dialog-actions">
+            <button mat-button (click)="getById(+id.value)">show User</button>
+            <button mat-button (click)="[this.newUser = 0,this.user = undefined]">close</button>
+        </div>
+    </div>
+    }
+</div>
+
+@if (showChild) {
+<router-outlet></router-outlet>
+}

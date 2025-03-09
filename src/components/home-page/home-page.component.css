@@ -1,0 +1,83 @@
+/* רקע כללי */
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #4b545d, #2e353d);
+    color: white;
+    text-align: center;
+    padding: 0px;
+  }
+  
+  /* תוכן */
+  .home-content {
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  /* כותרת */
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* הדגשה */
+  .highlight {
+    color: #edab54;
+  }
+  
+  /* תת-כותרת */
+  .subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+    color: #d9d9d9;
+  }
+  
+  /* קונטיינר כפתורים */
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  /* כפתור */
+  .cta-button {
+    background-color: #edab54;
+    color: #2e353d;
+    padding: 14px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  /* אפקט ריחוף */
+  .cta-button:hover {
+    background-color: #e09b45;
+    transform: translateY(-2px);
+  }
+  
+  /* כפתור משני */
+  .cta-button.secondary {
+    background-color: #4b545d;
+    color: white;
+  }
+  
+  .cta-button.secondary:hover {
+    background-color: #3a4249;
+  }
+  
+  /* אייקונים */
+  .material-icons {
+    font-size: 1.5rem;
+  }
+  

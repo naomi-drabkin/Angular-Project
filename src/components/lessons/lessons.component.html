@@ -1,0 +1,127 @@
+<!-- 
+
+
+    <button (click)="goBack()">back to all Courses</button>
+    <hr>
+    <button type="button" (click)="getLessons()">All Lessons</button>
+    @for(l of lessons$ | async;track l){
+        <div>{{l.id}} - {{l.title}}</div>
+        
+        @if(isTeacher()){
+            <button type="button" (click)="deleteLesson(l.id)">delete Lesson</button>
+            <button type="button" (click)="this.newLessons = l.id">update Lesson</button>
+        }
+          
+        
+        @if(newLessons === l.id){            
+            <form [formGroup]="Form_mew_lessons" (submit)="updateLesson(l.id)">
+                @for(f of formFields;track f){
+                    <input [formControlName]="f" type="text" [placeholder]="f">
+                }      
+                <button type="submit">send</button>
+            </form>
+        }
+        
+        
+    }
+    <button type="button" (click)="this.newLessons = -4">get By ID</button>
+    @if(newLessons === -4){
+        <input #id type="text" placeholder="enter Course id">
+        <button type="button" (click)="getById(+id.value)">send</button>
+        {{this.l.title}}
+    }
+    
+    @if(this.isTeacher()){
+        <button type="button" (click)="this.newLessons= -3">add Lesson</button>
+        @if(newLessons === -3){            
+            <form [formGroup]="Form_mew_lessons" (submit)="postNewLesson()">
+                @for(f of formFields;track f){
+                    <input [formControlName]="f" type="text" [placeholder]="f">
+                }      
+                <button type="submit">send</button>
+            </form>
+        }
+    }
+    
+<router-outlet></router-outlet> -->
+
+
+<mat-toolbar class="menu-toolbar">
+    <button mat-button (click)="goBack()">Back to All Courses</button>
+    <button mat-button (click)="getLessons()">All Lessons</button>
+    <button mat-button (click)="this.newLessons = -4">Get By ID</button>
+
+    @if(this.isTeacher()) {
+        <button mat-button (click)="this.newLessons = -3">Add Lesson</button>
+    }
+</mat-toolbar>
+
+<div class="content">
+    @for(lesson of lessons$ | async; track lesson) {
+        <div class="course-card">
+            <h3>{{ lesson.id }} - {{ lesson.title }}</h3>
+            
+            @if(isTeacher()) {
+                <button mat-button (click)="deleteLesson(lesson.id)">Delete Lesson</button>
+                <button mat-button (click)="this.newLessons = lesson.id">Update Lesson</button>
+            }
+
+            @if(newLessons === lesson.id) {            
+                <form [formGroup]="Form_mew_lessons">
+                    @for(f of formFields; track f) {
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ f }}</mat-label>
+                            <input matInput [formControlName]="f" type="text">
+                        </mat-form-field>
+                    }
+                    <div class="dialog-actions">
+                        <button mat-button (click)="[updateLesson(lesson.id),this.newLessons = 0]">Send</button>
+                        <button mat-button (click)="newLessons = 0">Cancle</button>
+
+                    </div>
+                </form>
+            }
+        </div>
+    }
+
+
+    @if(newLessons === -4) {
+        <div class="dialog">
+            <h2>Get Lesson By ID</h2>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter Lesson ID</mat-label>
+                <input matInput #id type="text">
+            </mat-form-field>
+            @if(this.l){
+                <p>{{ this.l.title }}</p>
+            }
+            <div class="dialog-actions">
+                <button mat-button (click)="getById(+id.value)">show lesson</button>
+                <button mat-button (click)="[this.newLessons = 0,this.l = undefined]">close</button>
+            </div>
+        </div>
+    }
+
+    @if(this.isTeacher()) {
+        @if(newLessons === -3) {            
+            <div class="dialog">
+                <h2>Add Lesson</h2>
+                <form [formGroup]="Form_mew_lessons">
+                    @for(f of formFields; track f) {
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ f }}</mat-label>
+                            <input matInput [formControlName]="f" type="text">
+                        </mat-form-field>
+                    }
+                    <div class="dialog-actions">
+                        <button mat-button (click)="[postNewLesson(),newLessons = 0]">Send</button>
+                        <button mat-button (click)="newLessons = 0">Cancle</button>
+
+                    </div>
+                </form>
+            </div>
+        }
+    }
+</div>
+
+<router-outlet></router-outlet>

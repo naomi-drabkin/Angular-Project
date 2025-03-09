@@ -1,0 +1,86 @@
+.menu-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: absolute;
+    background: #2e353d; /* כהה כמו הרקע */
+    color: white; /* כותרת בלבן */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+  }
+  
+  .menu-title {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #edab54; /* זהב כמו ההדגשות */
+  }
+  
+  .spacer {
+    flex: 1; /* מרחיק את הכפתורים לצד השני */
+  }
+  
+  .home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #4b545d, #2e353d);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    height: 100vh;
+    /* background-size: 100vh; */
+}
+  
+  .home-content {
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: auto;
+    
+}
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .highlight {
+    color: #edab54;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: #d9d9d9;
+  }
+  
+  .description {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #bfbfbf;
+    line-height: 1.6;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+  
+  
+  .content {
+    margin-top: 20px;
+    padding: 20px;
+    color: white; 
+  }
+
+
+  html, body {
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+}

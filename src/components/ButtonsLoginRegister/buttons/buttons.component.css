@@ -1,0 +1,8 @@
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  /* margin-top: 20px; */
+  color: #E5E4E2;
+  /* background-color: #191970; */
+}

@@ -1,0 +1,38 @@
+@if (isPopupOpen) {
+<div class="popup-overlay" (click)="isPopupOpen = false">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+        <button mat-icon-button class="close-btn" (click)="isPopupOpen = false">
+            <mat-icon>close</mat-icon>
+        </button>
+        <h2>התחברות / הרשמה</h2>
+        <form [formGroup]="Login_Register_form">
+            <div class="form-container">
+
+                @for (f of formFields; track f) {
+                @if (f === 'role') {
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>בחר תפקיד</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option value="admin">מנהל</mat-option>
+                        <mat-option value="student">סטודנט</mat-option>
+                        <mat-option value="teacher">מורה</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                } @else {
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ f === 'email' ? 'אימייל' : f === 'password' ? 'סיסמה' : f }}</mat-label>
+                    <input matInput [formControlName]="f"
+                        [type]="f === 'password' ? 'password' : (f === 'email' ? 'email' : 'text')">
+                </mat-form-field>
+                }
+                }
+            </div>
+            <button mat-raised-button (click)="onSubmit()" class="btn">שלח</button>
+            <button mat-raised-button (click)="enter()" class="btn">ביטול</button>
+
+        </form>
+    </div>
+</div>
+}
+
+<router-outlet></router-outlet>

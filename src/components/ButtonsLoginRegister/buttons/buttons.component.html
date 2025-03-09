@@ -1,0 +1,16 @@
+
+<div class="button-container">
+    <button mat-raised-button color="#191970" (click)="onClick('register')">
+      Register
+    </button>
+    <button mat-raised-button color="#191970" (click)="onClick('login')">
+      Login
+    </button>
+  </div>
+  
+  @if(userStatus && showPopup ) {
+    <app-login-register [userStatus]="userStatus" (closePopup)="closePopup()"></app-login-register>
+  }
+  
+
+<router-outlet></router-outlet>
